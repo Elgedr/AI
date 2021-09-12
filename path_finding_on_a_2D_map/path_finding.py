@@ -1,36 +1,92 @@
-class Pathfinder:
+from queue import Queue
 
-    def __init__(self):
-        self.map_size = ()
-        self.diamond_coordinates = ()
-        self.map = []
-        self.my_location = []
-        self.path_to_diamond = []
 
-    def count_map_sizes(self, map_exaple):
-        map_rows = len(map_exaple)
-        map_columns = len(map_exaple[0])
-        self.map_size = (map_columns, map_rows)
-        print(self.map_size)
+def bfs(given_map, start_coordinates):
+    # start - (y, x)
+
+    frontier = Queue()
+    frontier.put(start_coordinates)
+    came_from = {
+        start_coordinates: None}  # key: where we can go from current coordinate , value: our current coordinate
+    finish = None
+    path = []
+
+    while not frontier.empty():
+        current = frontier.get()
+        neighbours = []
+        row = given_map[current[1]]
+        point = row[current[0]]
+        columns_amount = len(row)
+        rows_amount = len(given_map)
+        row_nr = current[1]
+        column_nr = current[0]
+
+        if point == "D":  # if current point is the diamond we break the loop
+            finish = current  # save diamond coordinates
+            break
+
+        elif point != "*":
+            # here I add up and down coordinates
+
+            if rows_amount == row_nr + 1:  # if we are on the last row, we cant check the row below us, so we add only
+                # coordinate above us
+                neighbours.append((column_nr, row_nr - 1))
+            elif 0 == row_nr:  # if we are on the first row, we cant check the row above us, so we add only coordinates below
+                neighbours.append((column_nr, row_nr + 1))
+            else:
+                neighbours.append((column_nr, row_nr - 1))  # otherwise we add both  - below and above coordinates
+                neighbours.append((column_nr, row_nr + 1))
+
+            # here I add left and right coordinates
+            if columns_amount == column_nr + 1:  # if we are on the last column, we cant check the next column, so we add only back column coordinates
+                neighbours.append((column_nr - 1, row_nr))
+            elif 0 == column_nr:  # if we are on the first column, we cant check the back column, so we add only next column coordinates
+                neighbours.append((column_nr + 1, row_nr))
+
+            else:
+                neighbours.append((column_nr - 1, row_nr))  # otherwise we add both  - left and right coordinates
+                neighbours.append((column_nr + 1, row_nr))
+
+        for neighbours_coordinates in neighbours:
+            if neighbours_coordinates not in came_from.keys():  # if we were not on this coordinate, we ...
+                frontier.put(neighbours_coordinates)  # move frontier to other coordinate
+                came_from[
+                    neighbours_coordinates] = current  # add neighbour coordinate as possible movement from the current coordinate
+
+    where_i_am_now = finish  # saving diamond coordinates
+    path.append(
+        where_i_am_now)  # adding diamond coordinates as a start of the path (later I will reverse the path, so it will be the finish coordinate)
+    while start_coordinates not in path:
+        where_i_am_now = came_from.get(where_i_am_now)
+        path.append(where_i_am_now)
+    path.reverse()
+
+    res = []
+    for i in path:
+        a = i[1]
+        b = i[0]
+        res.append((a, b))
+
+    print(res)
 
 
 if __name__ == '__main__':
-    example = [
-        "      **               **      ",
-        "     ***     D        ***      ",
-        "     ***                       ",
-        "                      *****    ",
-        "           ****      ********  ",
-        "           ***          *******",
-        " **                      ******",
-        "*****             ****     *** ",
-        "*****              **          ",
-        "***                            ",
-        "              **         ******",
-        "**            ***       *******",
-        "***                      ***** ",
+    start = (16, 14)
+    lava_map1 = [
+        "     **********************    ",
+        "   *******   D    **********   ",
+        "   *******                     ",
+        " ****************    **********",
+        "***********          ********  ",
+        "            *******************",
+        " ********    ******************",
+        "********                   ****",
+        "*****       ************       ",
+        "***               *********    ",
+        "*      ******      ************",
+        "*****************       *******",
+        "***      ****            ***** ",
         "                               ",
         "                s              ",
     ]
-    pathfinder = Pathfinder()
-    pathfinder.count_map_sizes(example)
+    bfs(lava_map1, start)

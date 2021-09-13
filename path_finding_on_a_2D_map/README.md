@@ -31,8 +31,8 @@ A*:
 **Based on measurement results It is seen, that the fastest algorithm is Greedy's Best First Search algorithm. Compared to other algorithms Its has the smallest amount of iterations, but its path lengths are the largest so this means, that this algorithm can't find
 the shortest path.**
 
-The path lengths found by the Greedy and A * algorithms are similar and much shorter than
-The paths found by the Greedy algorithm. 
+**The path lengths found by the Greedy and A * algorithms are similar and much shorter than
+The paths found by the Greedy algorithm.**
 
-However, in terms of iterations, the algorithm A* coped faster.
+**However, in terms of iterations, the algorithm A* coped faster.
 Greedy typically runs faster than A* and BFS Algorithms but doesn’t produce optimal paths. A* is a good choice for most pathfinding needs**

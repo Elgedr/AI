@@ -10,8 +10,10 @@ def bfs(given_map, start_coordinates):
         start_coordinates: None}  # key: where we can go from current coordinate , value: our current coordinate
     finish = None
     path = []
+    loops_counter = 0
 
     while not frontier.empty():
+        loops_counter += 1
         current = frontier.get()
         neighbours = []
         row = given_map[current[1]]
@@ -66,8 +68,9 @@ def bfs(given_map, start_coordinates):
         a = i[1]
         b = i[0]
         res.append((a, b))
-
+    print(len(res))
     print(res)
+    print(loops_counter)
 
 
 def heuristic(goal, node):
@@ -75,6 +78,7 @@ def heuristic(goal, node):
 
 
 def greedy(given_map, start_coordinates, goal):
+    loops_counter = 0
     frontier = PriorityQueue()
     frontier.put((0, start_coordinates))
     came_from = {
@@ -83,6 +87,7 @@ def greedy(given_map, start_coordinates, goal):
     path = []
 
     while not frontier.empty():
+        loops_counter += 1
         current_first = frontier.get()
         current = current_first[1]
         neighbours = []
@@ -139,7 +144,9 @@ def greedy(given_map, start_coordinates, goal):
         a = i[1]
         b = i[0]
         res.append((a, b))
+    print(len(res))
     print(res)
+    print(loops_counter)
 
 
 def astar(given_map, start_coordinates, goal):
@@ -150,8 +157,10 @@ def astar(given_map, start_coordinates, goal):
     finish = None
     path = []
     cost_so_far = {start: 0}
+    loops_counter = 0
 
     while not frontier.empty():
+        loops_counter += 1
         current_first = frontier.get()
         current = current_first[1]
         neighbours = []
@@ -198,7 +207,6 @@ def astar(given_map, start_coordinates, goal):
                 came_from[
                     neighbour_coordinate] = current  # add neighbour coordinate as possible movement from the current coordinate
 
-    print(cost_so_far)
     where_i_am_now = finish  # saving diamond coordinates
     path.append(
         where_i_am_now)  # adding diamond coordinates as a start of the path (later I will reverse the path, so it will be the finish coordinate)
@@ -212,7 +220,8 @@ def astar(given_map, start_coordinates, goal):
         a = i[1]
         b = i[0]
         res.append((a, b))
-    print(res)
+    print(len(res))
+    print(loops_counter)
 
 
 if __name__ == '__main__':
@@ -236,7 +245,13 @@ if __name__ == '__main__':
     # ]
     # bfs(lava_map1, start)
     start = (2, 2)
-    with open("cave300x300") as f:
-        map_data3 = [line.strip() for line in f.readlines() if len(line) > 1]
+    with open("cave300x300") as file:
+        map_data300 = [line.strip() for line in file.readlines() if len(line) > 1]
+    with open("cave600x600") as file:
+        map_data600 = [line.strip() for line in file.readlines() if len(line) > 1]
+    with open("cave900x900") as file:
+        map_data900 = [line.strip() for line in file.readlines() if len(line) > 1]
 
-    astar(map_data3, start, (257, 295))  # (column, row)
+    # bfs(map_data300, start)
+    greedy(map_data600, start, (595, 598))
+    # astar(map_data900, start, (895, 898))  # (column, row)

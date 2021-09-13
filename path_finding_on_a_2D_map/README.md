@@ -1,4 +1,4 @@
-The aim of this task was to implement 3 path search algorithms: Breadth First Seach, Greedy search,  A* ; and examine how effective they are.
+**The aim of this task was to implement 3 path search algorithms: Breadth First Seach, Greedy search,  A* ; and examine how effective they are.**
 
 I tested all 3 algorithms in ASCII-art cards of different sizes:
 300X300;

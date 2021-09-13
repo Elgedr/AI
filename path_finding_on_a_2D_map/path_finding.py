@@ -236,7 +236,7 @@ if __name__ == '__main__':
     # ]
     # bfs(lava_map1, start)
     start = (2, 2)
-    with open("../../AppData/Roaming/JetBrains/PyCharm2021.2/scratches/cave300x300") as f:
+    with open("cave300x300") as f:
         map_data3 = [line.strip() for line in f.readlines() if len(line) > 1]
 
     astar(map_data3, start, (257, 295))  # (column, row)

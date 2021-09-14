@@ -34,8 +34,7 @@ the shortest path.**
 **The path lengths found by the BFS and A * algorithms are similar and much shorter than
 The paths found by the Greedy algorithm.**
 
-```
 However, in terms of iterations, the algorithm A* coped faster.
 Greedy typically runs faster than A* and BFS Algorithms but doesn’t produce optimal paths. A* is a good choice for most pathfinding needs.
-```
+
 

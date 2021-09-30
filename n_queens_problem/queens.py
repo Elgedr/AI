@@ -33,6 +33,17 @@ class NQPosition:
             return len(conflicts) // 2
         return 0
 
+    def draw(self):
+        queen_map = []
+        for y in range(self.board_size):
+            queen_map.append([])
+            for x in range(self.board_size):
+                if (x, y) in self.queens_coordinates:
+                    queen_map[y].append(1)
+                else:
+                    queen_map[y].append(0)
+        return queen_map
+
     def best_move(self):
         # find the best move and the value function after making that move
         best_move_value = None  # ((row, column) - the queen's coordinates, which we want to move (row, column) mew queen coordinates where we move it)
@@ -40,19 +51,21 @@ class NQPosition:
         equivalent_values = []
         for queen in self.queens_coordinates:
             for i in range(self.board_size):
-                new_pos = (queen[0], i)
-                move = (queen, new_pos)
-                self.make_move(move)
-                conflicts_with_new_movement = self.value()
-                if conflicts_with_new_movement < conflicts:
-                    conflicts = conflicts_with_new_movement
-                    best_move_value = move
-                    equivalent_values.clear()
-                    equivalent_values.append(move)
-                elif conflicts_with_new_movement == conflicts:
-                    equivalent_values.append(move)
-                self.make_move((new_pos,
-                                queen))  # turning back previous coordinates of queens, because we moved them only for checking the conflicts. Real queens movement will be done in method hill_climbing
+                for j in range(self.board_size):
+                    new_pos = (i, j)
+                    if new_pos not in self.queens_coordinates:
+                        move = (queen, new_pos)
+                        self.make_move(move)
+                        conflicts_with_new_movement = self.value()
+                        if conflicts_with_new_movement < conflicts:
+                            conflicts = conflicts_with_new_movement
+                            best_move_value = move
+                            equivalent_values.clear()
+                            equivalent_values.append(move)
+                        elif conflicts_with_new_movement == conflicts:
+                            equivalent_values.append(move)
+                        self.make_move((new_pos,
+                                        queen))  # turning back previous coordinates of queens, because we moved them only for checking the conflicts. Real queens movement will be done in method hill_climbing
         if len(equivalent_values) != 0:
             chosen = random.randint(0,
                                     len(equivalent_values) - 1)  # if there are few possible movements we can perform, we choose the best randomly
@@ -74,11 +87,7 @@ def hill_climbing(pos):
             pos.make_move(move)
             return pos, new_value
         elif new_value != 0 and new_value >= curr_value:
-            return hill_climbing(NQPosition(pos.value()))
-            # if new_value == 1:
-            #     print("I GIVE UP")
-            # # no improvement, give up
-            # return pos, curr_value
+            return hill_climbing(NQPosition(pos.board_size))
         else:
             # position improves, keep searching
             curr_value = new_value
@@ -86,8 +95,11 @@ def hill_climbing(pos):
 
 
 if __name__ == '__main__':
-    pos = NQPosition(4)  # test with the tiny 4x4 board first
+    pos = NQPosition(6)  # test with the tiny 4x4 board first
     print("initial conflicts number", pos.value())
     best_pos, best_value = hill_climbing(pos)
     print("Final value", best_value)
     # if best_value is 0, we solved the problem
+    mapp = best_pos.draw()
+    for row in mapp:
+        print(row)

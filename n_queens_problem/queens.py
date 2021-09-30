@@ -38,7 +38,7 @@ class NQPosition:
         for y in range(self.board_size):
             queen_map.append([])
             for x in range(self.board_size):
-                if (x, y) in self.queens_coordinates:
+                if (y, x) in self.queens_coordinates:
                     queen_map[y].append(1)
                 else:
                     queen_map[y].append(0)
@@ -87,7 +87,7 @@ def hill_climbing(pos):
             pos.make_move(move)
             return pos, new_value
         elif new_value != 0 and new_value >= curr_value:
-            return hill_climbing(NQPosition(pos.board_size))
+            return hill_climbing(NQPosition(pos.board_size))  # if can not find right queen positions, try once more
         else:
             # position improves, keep searching
             curr_value = new_value
@@ -95,11 +95,14 @@ def hill_climbing(pos):
 
 
 if __name__ == '__main__':
+
     pos = NQPosition(6)  # test with the tiny 4x4 board first
-    print("initial conflicts number", pos.value())
+    print("Initial position value", pos.value())
     best_pos, best_value = hill_climbing(pos)
     print("Final value", best_value)
     # if best_value is 0, we solved the problem
+    print("Final positions: ", best_pos.queens_coordinates)
+
     mapp = best_pos.draw()
     for row in mapp:
         print(row)

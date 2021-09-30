@@ -54,6 +54,7 @@ def bfs(given_map, start_coordinates):
                 frontier.put(neighbours_coordinates)  # move frontier to other coordinate
                 came_from[
                     neighbours_coordinates] = current  # add neighbour coordinate as possible movement from the current coordinate
+                print(came_from)
 
     where_i_am_now = finish  # saving diamond coordinates
     path.append(
@@ -225,33 +226,33 @@ def astar(given_map, start_coordinates, goal):
 
 
 if __name__ == '__main__':
-    # start = (16, 14)
-    # lava_map1 = [
-    #     "     **********************    ",
-    #     "   *******   D    **********   ",
-    #     "   *******                     ",
-    #     " ****************    **********",
-    #     "***********          ********  ",
-    #     "            *******************",
-    #     " ********    ******************",
-    #     "********                   ****",
-    #     "*****       ************       ",
-    #     "***               *********    ",
-    #     "*      ******      ************",
-    #     "*****************       *******",
-    #     "***      ****            ***** ",
-    #     "                               ",
-    #     "                s              ",
-    # ]
-    # bfs(lava_map1, start)
-    start = (2, 2)
-    with open("cave300x300") as file:
-        map_data300 = [line.strip() for line in file.readlines() if len(line) > 1]
-    with open("cave600x600") as file:
-        map_data600 = [line.strip() for line in file.readlines() if len(line) > 1]
-    with open("cave900x900") as file:
-        map_data900 = [line.strip() for line in file.readlines() if len(line) > 1]
-
-    # bfs(map_data300, start)
-    greedy(map_data600, start, (595, 598))
+    start = (16, 14)
+    lava_map1 = [
+        "     **********************    ",
+        "   *******   D    **********   ",
+        "   *******                     ",
+        " ****************    **********",
+        "***********          ********  ",
+        "            *******************",
+        " ********    ******************",
+        "********                   ****",
+        "*****       ************       ",
+        "***               *********    ",
+        "*      ******      ************",
+        "*****************       *******",
+        "***      ****            ***** ",
+        "                               ",
+        "                s              ",
+    ]
+    bfs(lava_map1, start)
+    # start = (2, 2)
+    # with open("cave300x300") as file:
+    #     map_data300 = [line.strip() for line in file.readlines() if len(line) > 1]
+    # with open("cave600x600") as file:
+    #     map_data600 = [line.strip() for line in file.readlines() if len(line) > 1]
+    # with open("cave900x900") as file:
+    #     map_data900 = [line.strip() for line in file.readlines() if len(line) > 1]
+    #
+    # # bfs(map_data300, start)
+    # greedy(map_data600, start, (595, 598))
     # astar(map_data900, start, (895, 898))  # (column, row)

@@ -61,8 +61,8 @@ class NQPosition:
 
     def make_move(self, move):
         # move is a ((r1, c1), (r2, c2)) , where the r1, c1 is a queens old coordinates and the r2, c2 is the queen's new coordinates
-        index = self.queens_coordinates.index(move[0])  # we find the index of a queen with current coordinates
-        self.queens_coordinates[index] = move[
+        queen = self.queens_coordinates.index(move[0])  # we find the index of a queen with current coordinates
+        self.queens_coordinates[queen] = move[
             1]  # we move the particular queen's coordinates on the new one (performing a movement)
 
 

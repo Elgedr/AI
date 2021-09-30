@@ -96,7 +96,7 @@ def hill_climbing(pos):
 
 if __name__ == '__main__':
 
-    pos = NQPosition(6)  # test with the tiny 4x4 board first
+    pos = NQPosition(4)  # test with the tiny 4x4 board first
     print("Initial position value", pos.value())
     best_pos, best_value = hill_climbing(pos)
     print("Final value", best_value)

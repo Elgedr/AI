@@ -11,7 +11,7 @@ class NQPosition:
             column = random.randint(0, self.board_size - 1)
             if (row, column) not in self.queens_coordinates:
                 self.queens_coordinates.append((row, column))
-        print(self.queens_coordinates)
+        print("Initial queens coordinates", self.queens_coordinates)
 
     def value(self):
         # calculate number of conflicts (queens that can capture each other)
@@ -87,7 +87,7 @@ def hill_climbing(pos):
 
 if __name__ == '__main__':
     pos = NQPosition(4)  # test with the tiny 4x4 board first
-    print("Initial position value", pos.value())
+    print("initial conflicts number", pos.value())
     best_pos, best_value = hill_climbing(pos)
     print("Final value", best_value)
     # if best_value is 0, we solved the problem

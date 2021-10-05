@@ -55,3 +55,5 @@ Final positions:  [(0, 5), (2, 1), (7, 2), (4, 0), (6, 4), (3, 3), (1, 7), (5, 6
 - [0, 0, 0, 0, 1, 0, 0, 0]
 - [0, 0, 1, 0, 0, 0, 0, 0]
 
+materials I used to understand how to compute if queen can eat another queen https://www.geeksforgeeks.org/check-if-a-queen-can-attack-a-given-cell-on-chessboard/
+

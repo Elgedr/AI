@@ -24,9 +24,9 @@ def simple_resolution_solver(KB, neg_alpha):
 
 def resolve(first_clause, second_clause):
     res = []
-    first_clause_elements_list = first_clause.copy()
-    second_clause_elements_list = second_clause.copy()
     for element in first_clause:
+        first_clause_elements_list = first_clause.copy()
+        second_clause_elements_list = second_clause.copy()
         if element.find("-") != -1:  # if element have a negation "-a"
             for element2 in second_clause:
                 if element[1:] == element2:  # if clause is "a V -a" remove both

@@ -1,0 +1,124 @@
+east(gondor, mordor).
+north(gondor, rohan).
+near(gondor, rohan).
+near(rohan, lothlorien).
+south(lothlorien, rohan).
+near(lothlorien, moria).
+east(moria, lothlorien).
+south(high_pass, moria).
+near(high_pass, moria).
+near(high_pass, rivendell).
+west(high_pass, rivendell).
+near(rivendell, bree).
+east(bree, rivendell).
+east(shire, bree).
+near(shire, bree).
+
+north(X,Y) => south(Y,X).
+south(X,Y) => north(Y,X).
+west(X,Y) => east(Y,X).
+east(X,Y) => west(Y,X).
+near(X,Y) => near(Y,X).
+
+north(X,Y) & north(Y,Z) => north(X,Z).
+west(X,Y) & west(Y,Z) => west(X,Z).
+south(X,Y) & south(Y,Z) => south(X,Z).
+east(X,Y) & east(Y,Z) => east(X,Z).
+east(X,Z) & south(Z,Y) => east(Z,Y).
+south(X,Y) & east(Y,Z) => south(X,Z).
+east(X,Y) & south(Y,Z) => south(X,Z).
+
+                                            east(shire, mordor) => $ans(shire, mordor).
+
+
+result: proof found
+
+answer: $ans(shire,mordor).
+proof:
+ 1: [in] -west(X,Y) | -west(Z,X) | west(Z,Y).
+ 2: [in] -east(X,Y) | west(Y,X).
+ 3: [in] east(shire,bree).
+ 4: [mp, 2, 3] west(bree,shire).
+ 5: [mp, 1, 4] -west(X,bree) | west(X,shire).
+ 6: [in] -south(X,Y) | -east(Z,X) | south(Z,Y).
+ 7: [in] -south(X,Y) | -east(Y,Z) | south(X,Z).
+ 8: [in] south(high_pass,moria).
+ 9: [mp, 7, 8] -east(moria,X) | south(high_pass,X).
+ 10: [in] east(moria,lothlorien).
+ 11: [mp, 9, 10] south(high_pass,lothlorien).
+ 12: [mp, 11, 7] -east(lothlorien,X) | south(high_pass,X).
+ 13: [in] -south(X,Y) | -east(Z,X) | east(X,Y).
+ 14: [in] south(lothlorien,rohan).
+ 15: [in] east(moria,lothlorien).
+ 16: [mp, 13, 14, 15] east(lothlorien,rohan).
+ 17: [mp, 12, 16] south(high_pass,rohan).
+ 18: [mp, 6, 17] -east(X,high_pass) | south(X,rohan).
+ 19: [in] -west(X,Y) | east(Y,X).
+ 20: [in] west(high_pass,rivendell).
+ 21: [mp, 19, 20] east(rivendell,high_pass).
+ 22: [mp, 18, 21] south(rivendell,rohan).
+ 23: [mp, 22, 6] -east(X,rivendell) | south(X,rohan).
+ 24: [in] east(bree,rivendell).
+ 25: [mp, 23, 24] south(bree,rohan).
+ 26: [in] east(shire,bree).
+ 27: [mp, 25, 13, 26] east(bree,rohan).
+ 28: [in] -north(X,Y) | south(Y,X).
+ 29: [in] north(gondor,rohan).
+ 30: [mp, 28, 29] south(rohan,gondor).
+ 31: [mp, 7, 30] -east(gondor,X) | south(rohan,X).
+ 32: [in] east(gondor,mordor).
+ 33: [mp, 31, 32] south(rohan,mordor).
+ 34: [mp, 6, 33] -east(X,rohan) | south(X,mordor).
+ 35: [mp, 27, 34] south(bree,mordor).
+ 36: [mp, 35, 13, 26] east(bree,mordor).
+ 37: [mp, 36, 2] west(mordor,bree).
+ 38: [mp, 5, 37] west(mordor,shire).
+ 39: [mp, 38, 19] east(shire,mordor).
+ 40: [in] -east(shire,mordor) | $ans(shire,mordor).
+ 41: [mp, 39, 40] $ans(shire,mordor).
+
+                                                    south(shire, mordor) => $ans(shire, mordor).
+
+ answer: $ans(shire,mordor).
+proof:
+ 1: [in] -west(X,Y) | -west(Z,X) | west(Z,Y).
+ 2: [in] -east(X,Y) | west(Y,X).
+ 3: [in] east(shire,bree).
+ 4: [mp, 2, 3] west(bree,shire).
+ 5: [mp, 1, 4] -west(X,bree) | west(X,shire).
+ 6: [in] -south(X,Y) | -east(Z,X) | south(Z,Y).
+ 7: [in] south(high_pass,moria).
+ 8: [mp, 6, 7] -east(X,high_pass) | south(X,moria).
+ 9: [in] -west(X,Y) | east(Y,X).
+ 10: [in] west(high_pass,rivendell).
+ 11: [mp, 9, 10] east(rivendell,high_pass).
+ 12: [mp, 8, 11] south(rivendell,moria).
+ 13: [mp, 12, 6] -east(X,rivendell) | south(X,moria).
+ 14: [in] east(bree,rivendell).
+ 15: [mp, 13, 14] south(bree,moria).
+ 16: [in] -south(X,Y) | -east(Z,X) | east(X,Y).
+ 17: [in] east(shire,bree).
+ 18: [mp, 15, 16, 17] east(bree,moria).
+ 19: [mp, 18, 2] west(moria,bree).
+ 20: [mp, 5, 19] west(moria,shire).
+ 21: [mp, 20, 9] east(shire,moria).
+ 22: [in] -south(X,Y) | -east(Y,Z) | south(X,Z).
+ 23: [in] south(lothlorien,rohan).
+ 24: [mp, 22, 23] -east(rohan,X) | south(lothlorien,X).
+ 25: [in] -north(X,Y) | south(Y,X).
+ 26: [in] north(gondor,rohan).
+ 27: [mp, 25, 26] south(rohan,gondor).
+ 28: [mp, 22, 27] -east(gondor,X) | south(rohan,X).
+ 29: [in] east(gondor,mordor).
+ 30: [mp, 28, 29] south(rohan,mordor).
+ 31: [in] east(moria,lothlorien).
+ 32: [mp, 16, 23, 31] east(lothlorien,rohan).
+ 33: [mp, 30, 16, 32] east(rohan,mordor).
+ 34: [mp, 24, 33] south(lothlorien,mordor).
+ 35: [mp, 6, 34] -east(X,lothlorien) | south(X,mordor).
+ 36: [in] east(moria,lothlorien).
+ 37: [mp, 35, 36] south(moria,mordor).
+ 38: [mp, 37, 6] -east(X,moria) | south(X,mordor).
+ 39: [mp, 21, 38] south(shire,mordor).
+ 40: [in] -south(shire,mordor) | $ans(shire,mordor).
+ 41: [mp, 39, 40] $ans(shire,mordor).

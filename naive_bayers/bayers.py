@@ -20,7 +20,7 @@ def testing():
                 topic_possibility[theme] = math.log(topic_articles_amount[theme] / articles_amount)
             for word in text.split():
                 word = word.lower()
-                if len(word) >= 5:
+                if len(word) >= 5 and word != "," and word != "and":
                     for theme in topic_possibility.keys():
                         if word in each_topic_words[theme].keys():
                             formula = (each_topic_words[theme][word] + 1) / (topic_all_words[topic] + len(unique_words))

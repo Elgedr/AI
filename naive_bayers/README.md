@@ -1,0 +1,1 @@
+Calculated maximum percentage of correctly classified articles over 100 test articles is 96

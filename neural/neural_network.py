@@ -50,8 +50,8 @@ if __name__ == '__main__':
         out_weights1.append(nn.coefs_[1][j][0])
         out_weights2.append(nn.coefs_[1][j][1])
 
-    plt.imshow(np.array(out_weights1).reshape(3, 1), norm=norm)
+    plt.imshow(np.array(out_weights1).reshape(3, 1))
     plt.show()
 
-    plt.imshow(np.array(out_weights2).reshape(3, 1), norm=norm)
+    plt.imshow(np.array(out_weights2).reshape(3, 1))
     plt.show()
